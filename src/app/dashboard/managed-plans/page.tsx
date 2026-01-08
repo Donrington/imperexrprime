@@ -151,24 +151,24 @@ export default function ManagedPlansPage() {
             align: 'start',
             loop: true,
           }}
-          className="w-full"
+          className="w-full max-w-[calc(100vw-2rem)]"
         >
-          <CarouselContent>
+          <CarouselContent className="-ml-2 md:-ml-4">
             {plans.map((plan, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="plan-card-wrapper p-1">
+              <CarouselItem key={index} className="pl-2 md:pl-4">
+                <div className="plan-card-wrapper">
                   <PlanCard plan={plan} />
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="left-0" />
+          <CarouselNext className="right-0" />
         </Carousel>
       </div>
 
       {/* Desktop Grid */}
-      <div className="hidden sm:grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="hidden grid-cols-1 gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => (
           <div key={plan.name} className="plan-card-wrapper">
             <PlanCard plan={plan} />

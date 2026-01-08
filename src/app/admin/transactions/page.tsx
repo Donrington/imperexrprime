@@ -153,30 +153,30 @@ export default function AdminTransactionsPage() {
         </CardHeader>
         <CardContent className="relative p-0 sm:p-6 sm:pt-0">
           {pendingWithdrawals.length > 0 ? (
-            <div className="overflow-x-auto">
-              <Table>
+            <div className="overflow-x-auto px-4 sm:px-0">
+              <Table className="min-w-full">
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-white/5">
-                    <TableHead className="text-xs text-neutral-400 sm:text-sm">User</TableHead>
-                    <TableHead className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">Date</TableHead>
-                    <TableHead className="text-right text-xs text-neutral-400 sm:text-sm">Amount</TableHead>
-                    <TableHead className="text-center text-xs text-neutral-400 sm:text-sm">Actions</TableHead>
+                    <TableHead className="min-w-[120px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">User</TableHead>
+                    <TableHead className="hidden min-w-[100px] text-xs text-neutral-400 sm:table-cell sm:text-sm">Date</TableHead>
+                    <TableHead className="min-w-[80px] text-right text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Amount</TableHead>
+                    <TableHead className="min-w-[120px] text-center text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {pendingWithdrawals.map((tx) => (
                     <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
-                      <TableCell className="truncate py-3 text-xs text-white sm:py-4 sm:text-sm">{tx.description}</TableCell>
+                      <TableCell className="max-w-[120px] truncate py-3 text-xs text-white sm:max-w-none sm:py-4 sm:text-sm">{tx.description}</TableCell>
                       <TableCell className="hidden py-3 text-xs text-neutral-400 sm:table-cell sm:py-4 sm:text-sm">{tx.date}</TableCell>
-                      <TableCell className="py-3 text-right text-xs font-medium text-red-400 sm:py-4 sm:text-sm">
+                      <TableCell className="whitespace-nowrap py-3 text-right text-xs font-medium text-red-400 sm:py-4 sm:text-sm">
                         ${Math.abs(tx.amount).toFixed(2)}
                       </TableCell>
                       <TableCell className="py-3 text-center sm:py-4">
-                        <div className="flex justify-center gap-1">
+                        <div className="flex justify-center gap-1 sm:gap-2">
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                            className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
                           >
                             <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                             <span className="sr-only">Approve</span>
@@ -184,7 +184,7 @@ export default function AdminTransactionsPage() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                            className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
                           >
                             <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                             <span className="sr-only">Decline</span>
@@ -228,32 +228,34 @@ export default function AdminTransactionsPage() {
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-neutral-500 sm:left-3 sm:h-4 sm:w-4" />
               <Input
-                placeholder="Search by transaction ID or user email..."
+                placeholder="Search transactions..."
                 className="rounded-lg border-white/10 bg-white/5 pl-8 text-xs text-white placeholder:text-neutral-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 sm:rounded-xl sm:pl-10 sm:text-sm"
               />
             </div>
           </div>
-          <div className="overflow-x-auto">
-            <Table>
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+            <Table className="min-w-full">
               <TableHeader>
                 <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableHead className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">Transaction ID</TableHead>
-                  <TableHead className="text-xs text-neutral-400 sm:text-sm">User</TableHead>
-                  <TableHead className="hidden text-xs text-neutral-400 md:table-cell md:text-sm">Date</TableHead>
-                  <TableHead className="text-xs text-neutral-400 sm:text-sm">Type</TableHead>
-                  <TableHead className="text-xs text-neutral-400 sm:text-sm">Status</TableHead>
-                  <TableHead className="text-right text-xs text-neutral-400 sm:text-sm">Amount</TableHead>
+                  <TableHead className="hidden min-w-[100px] text-xs text-neutral-400 sm:table-cell sm:text-sm">ID</TableHead>
+                  <TableHead className="min-w-[120px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">User</TableHead>
+                  <TableHead className="hidden min-w-[90px] text-xs text-neutral-400 md:table-cell md:text-sm">Date</TableHead>
+                  <TableHead className="min-w-[70px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Type</TableHead>
+                  <TableHead className="min-w-[80px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Status</TableHead>
+                  <TableHead className="min-w-[80px] text-right text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Amount</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {allTransactions.map((tx) => (
                   <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
                     <TableCell className="hidden py-3 font-mono text-xs text-neutral-400 sm:table-cell sm:py-4">{tx.id}</TableCell>
-                    <TableCell className="truncate py-3 text-xs text-white sm:py-4 sm:text-sm">{tx.description}</TableCell>
-                    <TableCell className="hidden py-3 text-xs text-neutral-400 md:table-cell md:py-4 md:text-sm">{tx.date}</TableCell>
-                    <TableCell className="py-3 text-xs text-neutral-300 sm:py-4 sm:text-sm">{tx.type}</TableCell>
-                    <TableCell className="py-3 sm:py-4">{getStatusBadge(tx.status)}</TableCell>
-                    <TableCell className={cn('py-3 text-right text-xs font-medium sm:py-4 sm:text-sm', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
+                    <TableCell className="max-w-[120px] truncate py-3 text-xs text-white sm:max-w-none sm:py-4 sm:text-sm">{tx.description}</TableCell>
+                    <TableCell className="hidden whitespace-nowrap py-3 text-xs text-neutral-400 md:table-cell md:py-4 md:text-sm">{tx.date}</TableCell>
+                    <TableCell className="whitespace-nowrap py-3 text-xs text-neutral-300 sm:py-4 sm:text-sm">{tx.type}</TableCell>
+                    <TableCell className="py-3 sm:py-4">
+                      <div className="flex justify-start">{getStatusBadge(tx.status)}</div>
+                    </TableCell>
+                    <TableCell className={cn('whitespace-nowrap py-3 text-right text-xs font-medium sm:py-4 sm:text-sm', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
                       {tx.amount > 0 ? '+' : ''}${Math.abs(tx.amount).toFixed(2)}
                     </TableCell>
                   </TableRow>

@@ -10,28 +10,28 @@ const assetClasses = [
   {
     name: 'Cryptocurrencies',
     description: 'Trade Bitcoin, Ethereum, and a wide range of altcoins with high liquidity and 24/7 market access.',
-    image: 'crypto',
+    image: 'https://images.pexels.com/photos/8358136/pexels-photo-8358136.jpeg',
     features: ['24/7 Trading', 'High Volatility', 'Decentralized'],
     href: '/trades/crypto'
   },
   {
     name: 'Stocks',
     description: 'Invest in thousands of public companies from major global exchanges like the NYSE and NASDAQ.',
-    image: 'stocks',
+    image: 'https://images.pexels.com/photos/6120214/pexels-photo-6120214.jpeg',
     features: ['Company Ownership', 'Dividends', 'Market Diversity'],
     href: '/trades/stock'
   },
   {
     name: 'Forex',
     description: 'Participate in the world\'s largest financial market by trading currency pairs from around the globe.',
-    image: 'forex',
+    image: 'https://images.pexels.com/photos/6770775/pexels-photo-6770775.jpeg',
     features: ['High Liquidity', 'Global Markets', 'Leverage Options'],
     href: '/trades/forex'
   },
   {
     name: 'Futures',
     description: 'Speculate on the future price of commodities, indices, and currencies with standardized contracts.',
-    image: 'futures',
+    image: 'https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg',
     features: ['Contract-Based', 'Hedging Tool', 'Standardized Assets'],
     href: '/trades/futures'
   },
@@ -85,7 +85,7 @@ export default function TradesPage() {
                     </div>
                     <div className={`${index % 2 === 1 ? 'md:order-1' : ''}`}>
                       <Image
-                        src={`https://picsum.photos/seed/${asset.image}/800/600`}
+                        src={asset.image}
                         alt={`${asset.name} trading`}
                         width={800}
                         height={600}
