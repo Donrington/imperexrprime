@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 15%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 88 77% 52%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 224 64% 34%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 223 47% 23%;
+    --muted-foreground: 210 40% 62%;
+    --accent: 224 64% 34%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 224 64% 24%;
+    --input: 224 64% 24%;
+    --ring: 88 77% 52%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 222 47% 9%;
+    --sidebar-foreground: 210 40% 80%;
+    --sidebar-primary: 88 77% 52%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 222 47% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 224 64% 24%;
+    --sidebar-ring: 88 77% 52%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 15%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 88 77% 52%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 224 64% 34%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 223 47% 23%;
+    --muted-foreground: 210 40% 62%;
+    --accent: 224 64% 34%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 224 64% 24%;
+    --input: 224 64% 24%;
+    --ring: 88 77% 52%;
+    
+    --sidebar-background: 222 47% 9%;
+    --sidebar-foreground: 210 40% 80%;
+    --sidebar-primary: 88 77% 52%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 222 47% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 224 64% 24%;
+    --sidebar-ring: 88 77% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+}
