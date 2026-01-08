@@ -332,7 +332,7 @@ export default function ForexPage() {
                 <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-20 blur-2xl transition-opacity group-hover:opacity-30"></div>
                 <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-2 backdrop-blur-sm">
                   <Image
-                    src="https://picsum.photos/seed/forex-chart/800/600"
+                    src="https://images.pexels.com/photos/6770775/pexels-photo-6770775.jpeg"
                     alt="Forex Chart"
                     width={800}
                     height={600}

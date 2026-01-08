@@ -330,7 +330,7 @@ export default function FuturesPage() {
                 <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-emerald-500 to-cyan-500 opacity-0 blur-2xl transition-all duration-500 group-hover:opacity-30" />
                 <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-2 backdrop-blur-sm">
                   <Image
-                    src="https://picsum.photos/seed/futures-chart/800/600"
+                    src="https://images.pexels.com/photos/7691761/pexels-photo-7691761.jpeg"
                     alt="Futures Trading Chart"
                     width={800}
                     height={600}

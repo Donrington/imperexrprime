@@ -360,7 +360,7 @@ export default function StockPage() {
                 <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-emerald-500 to-cyan-500 opacity-0 blur-2xl transition-all duration-500 group-hover:opacity-30" />
                 <div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-2 backdrop-blur-sm">
                   <Image
-                    src="https://picsum.photos/seed/stock-chart/800/600"
+                    src="https://images.pexels.com/photos/29611783/pexels-photo-29611783.jpeg"
                     alt="Stock Trading Chart"
                     width={800}
                     height={600}
