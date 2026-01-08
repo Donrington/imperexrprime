@@ -192,77 +192,73 @@ export default function AdminKycPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="relative p-0 sm:p-6 sm:pt-0">
-           <div className="w-full overflow-x-auto">
-             <div className="inline-block min-w-full align-middle">
-               <div className="overflow-hidden">
-                 <Table>
-                  <TableHeader>
-                    <TableRow className="border-white/10 hover:bg-white/5">
-                      <TableHead className="w-[200px] px-4 text-xs text-neutral-400 sm:w-auto sm:text-sm">User</TableHead>
-                      <TableHead className="hidden w-[120px] px-4 text-xs text-neutral-400 sm:table-cell sm:text-sm">Submission Date</TableHead>
-                      <TableHead className="w-[100px] px-4 text-xs text-neutral-400 sm:w-auto sm:text-sm">Status</TableHead>
-                      <TableHead className="w-[180px] px-4 text-right text-xs text-neutral-400 sm:w-auto sm:text-sm">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {applications.map((app) => (
-                      <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
-                        <TableCell className="px-4 py-3 sm:py-4">
-                          <div className="flex items-center gap-2 sm:gap-3">
-                            <div className="relative flex-shrink-0">
-                              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
-                              <Avatar className="relative h-8 w-8 border-2 border-white/20 sm:h-10 sm:w-10">
-                                <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
-                                <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-xs text-cyan-400 sm:text-sm">{app.name.charAt(0)}</AvatarFallback>
-                              </Avatar>
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="truncate text-xs font-medium text-white sm:text-sm">{app.name}</p>
-                              <p className="truncate text-xs text-neutral-400 sm:text-sm">{app.email}</p>
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell className="hidden whitespace-nowrap px-4 text-xs text-neutral-400 sm:table-cell sm:text-sm">{app.date}</TableCell>
-                        <TableCell className="px-4 py-3 sm:py-4">
-                          <Badge className="whitespace-nowrap border-0 bg-gradient-to-r from-amber-500 to-orange-500 text-xs text-white">{app.status}</Badge>
-                        </TableCell>
-                        <TableCell className="px-4 py-3 text-right sm:py-4">
-                          <div className="flex justify-end gap-1 sm:gap-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleViewDocuments(app)}
-                              className="h-8 w-8 flex-shrink-0 rounded-lg text-cyan-400 transition-all hover:bg-cyan-500/10 hover:text-cyan-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                            >
-                              <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
-                              <span className="sr-only">View Documents</span>
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                            >
-                              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                              <span className="sr-only">Approve</span>
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                            >
-                              <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                              <span className="sr-only">Reject</span>
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-               </div>
-             </div>
-           </div>
+        <CardContent className="relative p-4 sm:p-6 sm:pt-0">
+          <div className="overflow-x-auto">
+            <Table className="min-w-[700px]">
+              <TableHeader>
+                <TableRow className="border-white/10 hover:bg-white/5">
+                  <TableHead className="px-4 text-xs text-neutral-400 sm:text-sm">User</TableHead>
+                  <TableHead className="px-4 text-xs text-neutral-400 sm:text-sm">Submission Date</TableHead>
+                  <TableHead className="px-4 text-xs text-neutral-400 sm:text-sm">Status</TableHead>
+                  <TableHead className="px-4 text-right text-xs text-neutral-400 sm:text-sm">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {applications.map((app) => (
+                  <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
+                    <TableCell className="px-4 py-3 sm:py-4">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="relative flex-shrink-0">
+                          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
+                          <Avatar className="relative h-8 w-8 border-2 border-white/20 sm:h-10 sm:w-10">
+                            <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
+                            <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-xs text-cyan-400 sm:text-sm">{app.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-medium text-white sm:text-sm">{app.name}</p>
+                          <p className="text-xs text-neutral-400 sm:text-sm">{app.email}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="whitespace-nowrap px-4 py-3 text-xs text-neutral-400 sm:py-4 sm:text-sm">{app.date}</TableCell>
+                    <TableCell className="px-4 py-3 sm:py-4">
+                      <Badge className="whitespace-nowrap border-0 bg-gradient-to-r from-amber-500 to-orange-500 text-xs text-white">{app.status}</Badge>
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-right sm:py-4">
+                      <div className="flex justify-end gap-1 sm:gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleViewDocuments(app)}
+                          className="h-8 w-8 flex-shrink-0 rounded-lg text-cyan-400 transition-all hover:bg-cyan-500/10 hover:text-cyan-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                        >
+                          <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="sr-only">View Documents</span>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                        >
+                          <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="sr-only">Approve</span>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                        >
+                          <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="sr-only">Reject</span>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </div>
 
