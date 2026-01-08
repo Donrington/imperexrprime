@@ -73,7 +73,7 @@ export default function AdminKycPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen space-y-8 pb-12">
+    <div ref={containerRef} className="relative min-h-screen space-y-6 pb-12 sm:space-y-8">
       {/* Background Elements */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -left-1/4 top-0 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl" />
@@ -83,103 +83,107 @@ export default function AdminKycPage() {
       </div>
 
       {/* Header Section */}
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* KYC Badge */}
-        <div className="kyc-badge inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-4 py-2 backdrop-blur-sm">
-          <Crown className="h-4 w-4 text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400">KYC Verification</span>
+        <div className="kyc-badge inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-3 py-1.5 backdrop-blur-sm sm:gap-2 sm:px-4 sm:py-2">
+          <Crown className="h-3.5 w-3.5 text-emerald-400 sm:h-4 sm:w-4" />
+          <span className="text-xs font-medium text-emerald-400 sm:text-sm">KYC Verification</span>
         </div>
 
         {/* Header */}
-        <div className="kyc-header space-y-3">
-          <h1 className="text-4xl font-extrabold text-white md:text-5xl lg:text-6xl">
+        <div className="kyc-header space-y-2 sm:space-y-3">
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl md:text-5xl lg:text-6xl">
             KYC{' '}
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text font-cursive text-transparent">
                 Applications
               </span>
-              <Sparkles className="kyc-sparkle absolute -right-8 -top-2 h-5 w-5 text-emerald-400" />
+              <Sparkles className="kyc-sparkle absolute -right-6 -top-1 h-4 w-4 text-emerald-400 sm:-right-8 sm:-top-2 sm:h-5 sm:w-5" />
             </span>
           </h1>
-          <p className="text-lg text-neutral-400">Review and verify user identity submissions</p>
+          <p className="text-base text-neutral-400 sm:text-lg">Review and verify user identity submissions</p>
         </div>
       </div>
 
       {/* Applications Card */}
-      <div className="kyc-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm">
+      <div className="kyc-card group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm sm:rounded-3xl">
         {/* Gradient Glow on Hover */}
-        <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20" />
+        <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20 sm:rounded-3xl" />
 
         {/* Corner Gradient */}
-        <div className="absolute right-0 top-0 h-64 w-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 blur-3xl" />
+        <div className="absolute right-0 top-0 h-40 w-40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 blur-3xl sm:h-64 sm:w-64" />
 
-        <CardHeader className="relative">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-2.5 backdrop-blur-sm">
-              <ShieldCheck className="h-6 w-6 text-cyan-400" />
+        <CardHeader className="relative p-4 sm:p-6">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="rounded-lg bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-2 backdrop-blur-sm sm:rounded-xl sm:p-2.5">
+              <ShieldCheck className="h-5 w-5 text-cyan-400 sm:h-6 sm:w-6" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-white">Pending Applications</CardTitle>
-              <CardDescription className="text-neutral-400">
+              <CardTitle className="text-lg font-bold text-white sm:text-xl md:text-2xl">Pending Applications</CardTitle>
+              <CardDescription className="text-xs text-neutral-400 sm:text-sm">
                 Review and approve or reject user KYC submissions
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="relative">
-           <Table>
-            <TableHeader>
-              <TableRow className="border-white/10 hover:bg-white/5">
-                <TableHead className="text-neutral-400">User</TableHead>
-                <TableHead className="hidden sm:table-cell text-neutral-400">Submission Date</TableHead>
-                <TableHead className="text-neutral-400">Status</TableHead>
-                <TableHead className="text-right text-neutral-400">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {applications.map((app) => (
-                <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <div className="relative">
-                        <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
-                        <Avatar className="relative border-2 border-white/20">
-                          <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
-                          <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-cyan-400">{app.name.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                      </div>
-                      <div>
-                        <p className="font-medium text-white">{app.name}</p>
-                        <p className="text-sm text-neutral-400">{app.email}</p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell text-neutral-400">{app.date}</TableCell>
-                  <TableCell>
-                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white border-0">{app.status}</Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-xl text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300"
-                    >
-                      <CheckCircle className="h-5 w-5" />
-                      <span className="sr-only">Approve</span>
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-xl text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300"
-                    >
-                      <XCircle className="h-5 w-5" />
-                      <span className="sr-only">Reject</span>
-                    </Button>
-                  </TableCell>
+        <CardContent className="relative p-0 sm:p-6 sm:pt-0">
+           <div className="overflow-x-auto">
+             <Table>
+              <TableHeader>
+                <TableRow className="border-white/10 hover:bg-white/5">
+                  <TableHead className="text-xs text-neutral-400 sm:text-sm">User</TableHead>
+                  <TableHead className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">Submission Date</TableHead>
+                  <TableHead className="text-xs text-neutral-400 sm:text-sm">Status</TableHead>
+                  <TableHead className="text-right text-xs text-neutral-400 sm:text-sm">Actions</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {applications.map((app) => (
+                  <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
+                    <TableCell className="py-3 sm:py-4">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="relative">
+                          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
+                          <Avatar className="relative h-8 w-8 border-2 border-white/20 sm:h-10 sm:w-10">
+                            <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
+                            <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-xs text-cyan-400 sm:text-sm">{app.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-xs font-medium text-white sm:text-sm">{app.name}</p>
+                          <p className="truncate text-xs text-neutral-400 sm:text-sm">{app.email}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">{app.date}</TableCell>
+                    <TableCell className="py-3 sm:py-4">
+                      <Badge className="border-0 bg-gradient-to-r from-amber-500 to-orange-500 text-xs text-white">{app.status}</Badge>
+                    </TableCell>
+                    <TableCell className="py-3 text-right sm:py-4">
+                      <div className="flex justify-end gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                        >
+                          <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="sr-only">Approve</span>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                        >
+                          <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="sr-only">Reject</span>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+           </div>
         </CardContent>
       </div>
     </div>

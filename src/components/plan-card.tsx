@@ -43,36 +43,36 @@ export function PlanCard({ plan }: { plan: Plan }) {
   const RiskIcon = riskConfig.icon;
 
   return (
-    <div className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-8 backdrop-blur-sm transition-all duration-300 hover:border-white/20">
+    <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-4 backdrop-blur-sm transition-all duration-300 hover:border-white/20 sm:rounded-3xl sm:p-6 md:p-8">
       {/* Gradient Glow on Hover */}
       <div
-        className={`absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r ${colors.gradient} opacity-0 blur-xl transition-all duration-500 group-hover:opacity-30`}
+        className={`absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-r ${colors.gradient} opacity-0 blur-xl transition-all duration-500 group-hover:opacity-30 sm:rounded-3xl`}
       />
 
       {/* Corner Gradient */}
       <div
-        className={`absolute right-0 top-0 h-64 w-64 bg-gradient-to-br ${colors.bgGradient} opacity-50 blur-3xl`}
+        className={`absolute right-0 top-0 h-40 w-40 bg-gradient-to-br ${colors.bgGradient} opacity-50 blur-3xl sm:h-64 sm:w-64`}
       />
 
       {/* Content */}
-      <div className="relative flex h-full flex-col space-y-6">
+      <div className="relative flex h-full flex-col space-y-4 sm:space-y-5 md:space-y-6">
         {/* Header with Plan Name and Risk Badge */}
-        <div className="space-y-4">
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
-              <h3 className="text-3xl font-bold text-white">
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="space-y-1.5 sm:space-y-2">
+              <h3 className="text-2xl font-bold text-white sm:text-3xl">
                 {plan.name}{' '}
                 <span className={`bg-gradient-to-r ${colors.badgeColor} bg-clip-text text-transparent`}>
                   Plan
                 </span>
               </h3>
-              <p className="text-sm text-neutral-400">{plan.description}</p>
+              <p className="text-xs text-neutral-400 sm:text-sm">{plan.description}</p>
             </div>
             {/* Risk Level Badge */}
             <div
-              className={`flex items-center gap-1.5 rounded-full ${riskConfig.bgColor} px-3 py-1.5 backdrop-blur-sm`}
+              className={`flex w-fit items-center gap-1.5 rounded-full ${riskConfig.bgColor} px-2.5 py-1 backdrop-blur-sm sm:px-3 sm:py-1.5`}
             >
-              <RiskIcon className={`h-3.5 w-3.5 ${riskConfig.color}`} />
+              <RiskIcon className={`h-3 w-3 ${riskConfig.color} sm:h-3.5 sm:w-3.5`} />
               <span className={`text-xs font-medium ${riskConfig.color}`}>
                 {plan.riskLevel}
               </span>
@@ -84,50 +84,50 @@ export function PlanCard({ plan }: { plan: Plan }) {
         </div>
 
         {/* Daily ROI Section */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm font-medium text-neutral-400">
-            <TrendingUp className="h-4 w-4" />
+        <div className="space-y-1.5 sm:space-y-2">
+          <div className="flex items-center gap-1.5 text-xs font-medium text-neutral-400 sm:gap-2 sm:text-sm">
+            <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span>Projected Daily ROI</span>
           </div>
-          <div className="flex items-baseline gap-2">
-            <p className={`text-5xl font-extrabold bg-gradient-to-r ${colors.badgeColor} bg-clip-text text-transparent`}>
+          <div className="flex items-baseline gap-1.5 sm:gap-2">
+            <p className={`text-3xl font-extrabold bg-gradient-to-r ${colors.badgeColor} bg-clip-text text-transparent sm:text-4xl md:text-5xl`}>
               {plan.dailyROI?.toFixed(1)}%
             </p>
-            <p className="text-sm text-neutral-500">per day</p>
+            <p className="text-xs text-neutral-500 sm:text-sm">per day</p>
           </div>
-          <p className="text-xs text-neutral-500">{plan.explanation}</p>
+          <p className="text-xs text-neutral-500 leading-relaxed">{plan.explanation}</p>
         </div>
 
         {/* Minimum Deposit Section */}
-        <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-4 backdrop-blur-sm">
-          <div className="flex items-center gap-2 text-sm font-medium text-neutral-400">
-            <DollarSign className="h-4 w-4" />
+        <div className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-3 backdrop-blur-sm sm:rounded-2xl sm:p-4">
+          <div className="flex items-center gap-1.5 text-xs font-medium text-neutral-400 sm:gap-2 sm:text-sm">
+            <DollarSign className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span>Minimum Deposit</span>
           </div>
-          <p className="mt-2 text-3xl font-bold text-white">
+          <p className="mt-1.5 text-2xl font-bold text-white sm:mt-2 sm:text-3xl">
             ${plan.minDeposit.toLocaleString()}
           </p>
         </div>
 
         {/* Features List */}
-        <div className="flex-grow space-y-3">
+        <div className="flex-grow space-y-2 sm:space-y-2.5 md:space-y-3">
           {features.map((feature, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className={`mt-0.5 rounded-full ${colors.bgGradient} p-1 backdrop-blur-sm`}>
-                <CheckCircle className={`h-4 w-4 ${colors.iconColor}`} />
+            <div key={i} className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
+              <div className={`mt-0.5 rounded-full ${colors.bgGradient} p-0.5 backdrop-blur-sm sm:p-1`}>
+                <CheckCircle className={`h-3.5 w-3.5 ${colors.iconColor} sm:h-4 sm:w-4`} />
               </div>
-              <span className="text-sm text-neutral-300">{feature}</span>
+              <span className="text-xs text-neutral-300 sm:text-sm">{feature}</span>
             </div>
           ))}
         </div>
 
         {/* CTA Button */}
         <Button
-          className={`w-full rounded-xl bg-gradient-to-r ${colors.gradient} px-6 py-6 text-base font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl`}
+          className={`w-full rounded-lg bg-gradient-to-r ${colors.gradient} px-4 py-5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:rounded-xl sm:px-5 sm:py-6 sm:text-base`}
           asChild
         >
           <Link href="/dashboard/wallet">
-            <Rocket className="mr-2 h-5 w-5" />
+            <Rocket className="mr-1.5 h-4 w-4 sm:mr-2 sm:h-5 sm:w-5" />
             Select {plan.name} Plan
           </Link>
         </Button>

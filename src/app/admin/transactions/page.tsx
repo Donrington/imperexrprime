@@ -99,7 +99,7 @@ export default function AdminTransactionsPage() {
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-screen space-y-8 pb-12">
+    <div ref={containerRef} className="relative min-h-screen space-y-6 pb-12 sm:space-y-8">
       {/* Background Elements */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -left-1/4 top-0 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl" />
@@ -109,152 +109,158 @@ export default function AdminTransactionsPage() {
       </div>
 
       {/* Header Section */}
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Transactions Badge */}
-        <div className="transactions-badge inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-4 py-2 backdrop-blur-sm">
-          <Crown className="h-4 w-4 text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-400">Transaction Management</span>
+        <div className="transactions-badge inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 px-3 py-1.5 backdrop-blur-sm sm:gap-2 sm:px-4 sm:py-2">
+          <Crown className="h-3.5 w-3.5 text-emerald-400 sm:h-4 sm:w-4" />
+          <span className="text-xs font-medium text-emerald-400 sm:text-sm">Transaction Management</span>
         </div>
 
         {/* Header */}
-        <div className="transactions-header space-y-3">
-          <h1 className="text-4xl font-extrabold text-white md:text-5xl lg:text-6xl">
+        <div className="transactions-header space-y-2 sm:space-y-3">
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl md:text-5xl lg:text-6xl">
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text font-cursive text-transparent">
                 Transactions
               </span>
-              <Sparkles className="transactions-sparkle absolute -right-8 -top-2 h-5 w-5 text-emerald-400" />
+              <Sparkles className="transactions-sparkle absolute -right-6 -top-1 h-4 w-4 text-emerald-400 sm:-right-8 sm:-top-2 sm:h-5 sm:w-5" />
             </span>
           </h1>
-          <p className="text-lg text-neutral-400">Monitor and manage all platform transactions</p>
+          <p className="text-base text-neutral-400 sm:text-lg">Monitor and manage all platform transactions</p>
         </div>
       </div>
 
       {/* Pending Withdrawals Card */}
-      <div className="pending-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm">
+      <div className="pending-card group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm sm:rounded-3xl">
         {/* Gradient Glow on Hover */}
-        <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20" />
+        <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20 sm:rounded-3xl" />
 
         {/* Corner Gradient */}
-        <div className="absolute right-0 top-0 h-64 w-64 bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-50 blur-3xl" />
+        <div className="absolute right-0 top-0 h-40 w-40 bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-50 blur-3xl sm:h-64 sm:w-64" />
 
-        <CardHeader className="relative">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 p-2.5 backdrop-blur-sm">
-              <Receipt className="h-6 w-6 text-amber-400" />
+        <CardHeader className="relative p-4 sm:p-6">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/10 p-2 backdrop-blur-sm sm:rounded-xl sm:p-2.5">
+              <Receipt className="h-5 w-5 text-amber-400 sm:h-6 sm:w-6" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-white">Pending Withdrawal Requests</CardTitle>
-              <CardDescription className="text-neutral-400">
+              <CardTitle className="text-lg font-bold text-white sm:text-xl md:text-2xl">Pending Withdrawal Requests</CardTitle>
+              <CardDescription className="text-xs text-neutral-400 sm:text-sm">
                 Review and approve or decline withdrawal requests from users
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="relative">
+        <CardContent className="relative p-0 sm:p-6 sm:pt-0">
           {pendingWithdrawals.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableHead className="text-neutral-400">User</TableHead>
-                  <TableHead className="hidden sm:table-cell text-neutral-400">Date</TableHead>
-                  <TableHead className="text-right text-neutral-400">Amount</TableHead>
-                  <TableHead className="text-center text-neutral-400">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {pendingWithdrawals.map((tx) => (
-                  <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
-                    <TableCell className="text-white">{tx.description}</TableCell>
-                    <TableCell className="hidden sm:table-cell text-neutral-400">{tx.date}</TableCell>
-                    <TableCell className="text-right font-medium text-red-400">
-                      ${Math.abs(tx.amount).toFixed(2)}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="rounded-xl text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300"
-                      >
-                        <CheckCircle className="h-5 w-5" />
-                        <span className="sr-only">Approve</span>
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="rounded-xl text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300"
-                      >
-                        <XCircle className="h-5 w-5" />
-                        <span className="sr-only">Decline</span>
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-white/10 hover:bg-white/5">
+                    <TableHead className="text-xs text-neutral-400 sm:text-sm">User</TableHead>
+                    <TableHead className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">Date</TableHead>
+                    <TableHead className="text-right text-xs text-neutral-400 sm:text-sm">Amount</TableHead>
+                    <TableHead className="text-center text-xs text-neutral-400 sm:text-sm">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {pendingWithdrawals.map((tx) => (
+                    <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
+                      <TableCell className="truncate py-3 text-xs text-white sm:py-4 sm:text-sm">{tx.description}</TableCell>
+                      <TableCell className="hidden py-3 text-xs text-neutral-400 sm:table-cell sm:py-4 sm:text-sm">{tx.date}</TableCell>
+                      <TableCell className="py-3 text-right text-xs font-medium text-red-400 sm:py-4 sm:text-sm">
+                        ${Math.abs(tx.amount).toFixed(2)}
+                      </TableCell>
+                      <TableCell className="py-3 text-center sm:py-4">
+                        <div className="flex justify-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                          >
+                            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                            <span className="sr-only">Approve</span>
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                          >
+                            <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                            <span className="sr-only">Decline</span>
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           ) : (
-            <p className="text-sm text-neutral-400">No pending withdrawals to review.</p>
+            <p className="px-4 pb-4 text-xs text-neutral-400 sm:px-0 sm:pb-0 sm:text-sm">No pending withdrawals to review.</p>
           )}
         </CardContent>
       </div>
 
       {/* All Transactions Card */}
-      <div className="all-transactions-card group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm">
+      <div className="all-transactions-card group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm sm:rounded-3xl">
         {/* Gradient Glow on Hover */}
-        <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20" />
+        <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 opacity-0 blur-xl transition-all duration-500 group-hover:opacity-20 sm:rounded-3xl" />
 
         {/* Corner Gradient */}
-        <div className="absolute right-0 top-0 h-64 w-64 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 blur-3xl" />
+        <div className="absolute right-0 top-0 h-40 w-40 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 blur-3xl sm:h-64 sm:w-64" />
 
-        <CardHeader className="relative">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-2.5 backdrop-blur-sm">
-              <Receipt className="h-6 w-6 text-emerald-400" />
+        <CardHeader className="relative p-4 sm:p-6">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <div className="rounded-lg bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-2 backdrop-blur-sm sm:rounded-xl sm:p-2.5">
+              <Receipt className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-white">All Transactions</CardTitle>
-              <CardDescription className="text-neutral-400">
+              <CardTitle className="text-lg font-bold text-white sm:text-xl md:text-2xl">All Transactions</CardTitle>
+              <CardDescription className="text-xs text-neutral-400 sm:text-sm">
                 View, search, and manage all platform transactions, including deposits
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="relative">
-          <div className="mb-4">
+        <CardContent className="relative p-4 pt-0 sm:p-6 sm:pt-0">
+          <div className="mb-3 sm:mb-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
+              <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-neutral-500 sm:left-3 sm:h-4 sm:w-4" />
               <Input
                 placeholder="Search by transaction ID or user email..."
-                className="rounded-xl border-white/10 bg-white/5 pl-10 text-white placeholder:text-neutral-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20"
+                className="rounded-lg border-white/10 bg-white/5 pl-8 text-xs text-white placeholder:text-neutral-500 focus:border-emerald-500/50 focus:ring-2 focus:ring-emerald-500/20 sm:rounded-xl sm:pl-10 sm:text-sm"
               />
             </div>
           </div>
-          <Table>
-            <TableHeader>
-              <TableRow className="border-white/10 hover:bg-white/5">
-                <TableHead className="hidden sm:table-cell text-neutral-400">Transaction ID</TableHead>
-                <TableHead className="text-neutral-400">User</TableHead>
-                <TableHead className="hidden md:table-cell text-neutral-400">Date</TableHead>
-                <TableHead className="text-neutral-400">Type</TableHead>
-                <TableHead className="text-neutral-400">Status</TableHead>
-                <TableHead className="text-right text-neutral-400">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {allTransactions.map((tx) => (
-                <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
-                  <TableCell className="hidden sm:table-cell font-mono text-xs text-neutral-400">{tx.id}</TableCell>
-                  <TableCell className="text-white">{tx.description}</TableCell>
-                  <TableCell className="hidden md:table-cell text-neutral-400">{tx.date}</TableCell>
-                  <TableCell className="text-neutral-300">{tx.type}</TableCell>
-                  <TableCell>{getStatusBadge(tx.status)}</TableCell>
-                  <TableCell className={cn('text-right font-medium', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
-                    {tx.amount > 0 ? '+' : ''}${Math.abs(tx.amount).toFixed(2)}
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-white/10 hover:bg-white/5">
+                  <TableHead className="hidden text-xs text-neutral-400 sm:table-cell sm:text-sm">Transaction ID</TableHead>
+                  <TableHead className="text-xs text-neutral-400 sm:text-sm">User</TableHead>
+                  <TableHead className="hidden text-xs text-neutral-400 md:table-cell md:text-sm">Date</TableHead>
+                  <TableHead className="text-xs text-neutral-400 sm:text-sm">Type</TableHead>
+                  <TableHead className="text-xs text-neutral-400 sm:text-sm">Status</TableHead>
+                  <TableHead className="text-right text-xs text-neutral-400 sm:text-sm">Amount</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {allTransactions.map((tx) => (
+                  <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
+                    <TableCell className="hidden py-3 font-mono text-xs text-neutral-400 sm:table-cell sm:py-4">{tx.id}</TableCell>
+                    <TableCell className="truncate py-3 text-xs text-white sm:py-4 sm:text-sm">{tx.description}</TableCell>
+                    <TableCell className="hidden py-3 text-xs text-neutral-400 md:table-cell md:py-4 md:text-sm">{tx.date}</TableCell>
+                    <TableCell className="py-3 text-xs text-neutral-300 sm:py-4 sm:text-sm">{tx.type}</TableCell>
+                    <TableCell className="py-3 sm:py-4">{getStatusBadge(tx.status)}</TableCell>
+                    <TableCell className={cn('py-3 text-right text-xs font-medium sm:py-4 sm:text-sm', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
+                      {tx.amount > 0 ? '+' : ''}${Math.abs(tx.amount).toFixed(2)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </div>
     </div>
