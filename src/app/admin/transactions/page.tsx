@@ -153,48 +153,54 @@ export default function AdminTransactionsPage() {
         </CardHeader>
         <CardContent className="relative p-0 sm:p-6 sm:pt-0">
           {pendingWithdrawals.length > 0 ? (
-            <div className="overflow-x-auto px-4 sm:px-0">
-              <Table className="min-w-full">
-                <TableHeader>
-                  <TableRow className="border-white/10 hover:bg-white/5">
-                    <TableHead className="min-w-[120px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">User</TableHead>
-                    <TableHead className="hidden min-w-[100px] text-xs text-neutral-400 sm:table-cell sm:text-sm">Date</TableHead>
-                    <TableHead className="min-w-[80px] text-right text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Amount</TableHead>
-                    <TableHead className="min-w-[120px] text-center text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {pendingWithdrawals.map((tx) => (
-                    <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
-                      <TableCell className="max-w-[120px] truncate py-3 text-xs text-white sm:max-w-none sm:py-4 sm:text-sm">{tx.description}</TableCell>
-                      <TableCell className="hidden py-3 text-xs text-neutral-400 sm:table-cell sm:py-4 sm:text-sm">{tx.date}</TableCell>
-                      <TableCell className="whitespace-nowrap py-3 text-right text-xs font-medium text-red-400 sm:py-4 sm:text-sm">
-                        ${Math.abs(tx.amount).toFixed(2)}
-                      </TableCell>
-                      <TableCell className="py-3 text-center sm:py-4">
-                        <div className="flex justify-center gap-1 sm:gap-2">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                          >
-                            <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                            <span className="sr-only">Approve</span>
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                          >
-                            <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                            <span className="sr-only">Decline</span>
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            <div className="w-full overflow-x-auto">
+              <div className="inline-block min-w-full align-middle">
+                <div className="overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-white/10 hover:bg-white/5">
+                        <TableHead className="w-[150px] px-4 text-xs text-neutral-400 sm:w-auto sm:text-sm">User</TableHead>
+                        <TableHead className="hidden w-[120px] px-4 text-xs text-neutral-400 sm:table-cell sm:text-sm">Date</TableHead>
+                        <TableHead className="w-[100px] px-4 text-right text-xs text-neutral-400 sm:w-auto sm:text-sm">Amount</TableHead>
+                        <TableHead className="w-[130px] px-4 text-center text-xs text-neutral-400 sm:w-auto sm:text-sm">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {pendingWithdrawals.map((tx) => (
+                        <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
+                          <TableCell className="px-4 py-3 text-xs text-white sm:py-4 sm:text-sm">
+                            <div className="max-w-[130px] truncate sm:max-w-none">{tx.description}</div>
+                          </TableCell>
+                          <TableCell className="hidden whitespace-nowrap px-4 py-3 text-xs text-neutral-400 sm:table-cell sm:py-4 sm:text-sm">{tx.date}</TableCell>
+                          <TableCell className="whitespace-nowrap px-4 py-3 text-right text-xs font-medium text-red-400 sm:py-4 sm:text-sm">
+                            ${Math.abs(tx.amount).toFixed(2)}
+                          </TableCell>
+                          <TableCell className="px-4 py-3 text-center sm:py-4">
+                            <div className="flex justify-center gap-1 sm:gap-2">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                              >
+                                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                                <span className="sr-only">Approve</span>
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                              >
+                                <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                                <span className="sr-only">Decline</span>
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
             </div>
           ) : (
             <p className="px-4 pb-4 text-xs text-neutral-400 sm:px-0 sm:pb-0 sm:text-sm">No pending withdrawals to review.</p>
@@ -233,35 +239,39 @@ export default function AdminTransactionsPage() {
               />
             </div>
           </div>
-          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-            <Table className="min-w-full">
-              <TableHeader>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableHead className="hidden min-w-[100px] text-xs text-neutral-400 sm:table-cell sm:text-sm">ID</TableHead>
-                  <TableHead className="min-w-[120px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">User</TableHead>
-                  <TableHead className="hidden min-w-[90px] text-xs text-neutral-400 md:table-cell md:text-sm">Date</TableHead>
-                  <TableHead className="min-w-[70px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Type</TableHead>
-                  <TableHead className="min-w-[80px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Status</TableHead>
-                  <TableHead className="min-w-[80px] text-right text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {allTransactions.map((tx) => (
-                  <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
-                    <TableCell className="hidden py-3 font-mono text-xs text-neutral-400 sm:table-cell sm:py-4">{tx.id}</TableCell>
-                    <TableCell className="max-w-[120px] truncate py-3 text-xs text-white sm:max-w-none sm:py-4 sm:text-sm">{tx.description}</TableCell>
-                    <TableCell className="hidden whitespace-nowrap py-3 text-xs text-neutral-400 md:table-cell md:py-4 md:text-sm">{tx.date}</TableCell>
-                    <TableCell className="whitespace-nowrap py-3 text-xs text-neutral-300 sm:py-4 sm:text-sm">{tx.type}</TableCell>
-                    <TableCell className="py-3 sm:py-4">
-                      <div className="flex justify-start">{getStatusBadge(tx.status)}</div>
-                    </TableCell>
-                    <TableCell className={cn('whitespace-nowrap py-3 text-right text-xs font-medium sm:py-4 sm:text-sm', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
-                      {tx.amount > 0 ? '+' : ''}${Math.abs(tx.amount).toFixed(2)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+          <div className="w-full overflow-x-auto -mx-4 sm:mx-0">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden px-4 sm:px-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/10 hover:bg-white/5">
+                      <TableHead className="hidden w-[110px] px-2 text-xs text-neutral-400 sm:table-cell sm:px-4 sm:text-sm">ID</TableHead>
+                      <TableHead className="w-[140px] px-2 text-xs text-neutral-400 sm:w-auto sm:px-4 sm:text-sm">User</TableHead>
+                      <TableHead className="hidden w-[100px] px-2 text-xs text-neutral-400 md:table-cell md:px-4 md:text-sm">Date</TableHead>
+                      <TableHead className="w-[80px] px-2 text-xs text-neutral-400 sm:w-auto sm:px-4 sm:text-sm">Type</TableHead>
+                      <TableHead className="w-[90px] px-2 text-xs text-neutral-400 sm:w-auto sm:px-4 sm:text-sm">Status</TableHead>
+                      <TableHead className="w-[100px] px-2 text-right text-xs text-neutral-400 sm:w-auto sm:px-4 sm:text-sm">Amount</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {allTransactions.map((tx) => (
+                      <TableRow key={tx.id} className="border-white/10 transition-colors hover:bg-white/5">
+                        <TableCell className="hidden px-2 py-3 font-mono text-xs text-neutral-400 sm:table-cell sm:px-4 sm:py-4">{tx.id}</TableCell>
+                        <TableCell className="px-2 py-3 text-xs text-white sm:px-4 sm:py-4 sm:text-sm">
+                          <div className="max-w-[120px] truncate sm:max-w-none">{tx.description}</div>
+                        </TableCell>
+                        <TableCell className="hidden whitespace-nowrap px-2 py-3 text-xs text-neutral-400 md:table-cell md:px-4 md:py-4 md:text-sm">{tx.date}</TableCell>
+                        <TableCell className="whitespace-nowrap px-2 py-3 text-xs text-neutral-300 sm:px-4 sm:py-4 sm:text-sm">{tx.type}</TableCell>
+                        <TableCell className="px-2 py-3 sm:px-4 sm:py-4">{getStatusBadge(tx.status)}</TableCell>
+                        <TableCell className={cn('whitespace-nowrap px-2 py-3 text-right text-xs font-medium sm:px-4 sm:py-4 sm:text-sm', tx.amount > 0 ? 'text-emerald-400' : 'text-red-400')}>
+                          {tx.amount > 0 ? '+' : ''}${Math.abs(tx.amount).toFixed(2)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           </div>
         </CardContent>
       </div>

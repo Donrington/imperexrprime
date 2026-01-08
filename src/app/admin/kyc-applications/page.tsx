@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import {
   CardContent,
@@ -18,18 +18,84 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, Sparkles, Crown, ShieldCheck } from 'lucide-react';
+import { CheckCircle, XCircle, Sparkles, Crown, ShieldCheck, Eye, X, Download } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import Image from 'next/image';
 
-const applications = [
-  { id: 'usr_1', name: 'Bob Johnson', email: 'bob.j@example.com', date: '2023-10-26', status: 'Pending', avatar: '3' },
-  { id: 'usr_2', name: 'Charlie Brown', email: 'charlie.b@example.com', date: '2023-10-25', status: 'Pending', avatar: '4' },
-  { id: 'usr_3', name: 'Diana Miller', email: 'diana.m@example.com', date: '2023-10-24', status: 'Pending', avatar: '5' },
+interface KYCDocument {
+  type: string;
+  url: string;
+  uploadedAt: string;
+}
+
+interface Application {
+  id: string;
+  name: string;
+  email: string;
+  date: string;
+  status: string;
+  avatar: string;
+  documents: KYCDocument[];
+}
+
+const applications: Application[] = [
+  {
+    id: 'usr_1',
+    name: 'Bob Johnson',
+    email: 'bob.j@example.com',
+    date: '2023-10-26',
+    status: 'Pending',
+    avatar: '3',
+    documents: [
+      { type: 'ID Document (Front)', url: 'https://images.pexels.com/photos/6287298/pexels-photo-6287298.jpeg', uploadedAt: '2023-10-26 09:30 AM' },
+      { type: 'ID Document (Back)', url: 'https://images.pexels.com/photos/6287322/pexels-photo-6287322.jpeg', uploadedAt: '2023-10-26 09:31 AM' },
+      { type: 'Proof of Address', url: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg', uploadedAt: '2023-10-26 09:32 AM' },
+    ]
+  },
+  {
+    id: 'usr_2',
+    name: 'Charlie Brown',
+    email: 'charlie.b@example.com',
+    date: '2023-10-25',
+    status: 'Pending',
+    avatar: '4',
+    documents: [
+      { type: 'Passport', url: 'https://images.pexels.com/photos/5011647/pexels-photo-5011647.jpeg', uploadedAt: '2023-10-25 02:15 PM' },
+      { type: 'Utility Bill', url: 'https://images.pexels.com/photos/4386158/pexels-photo-4386158.jpeg', uploadedAt: '2023-10-25 02:16 PM' },
+    ]
+  },
+  {
+    id: 'usr_3',
+    name: 'Diana Miller',
+    email: 'diana.m@example.com',
+    date: '2023-10-24',
+    status: 'Pending',
+    avatar: '5',
+    documents: [
+      { type: 'Driver License (Front)', url: 'https://images.pexels.com/photos/7821681/pexels-photo-7821681.jpeg', uploadedAt: '2023-10-24 11:45 AM' },
+      { type: 'Driver License (Back)', url: 'https://images.pexels.com/photos/7821684/pexels-photo-7821684.jpeg', uploadedAt: '2023-10-24 11:46 AM' },
+      { type: 'Bank Statement', url: 'https://images.pexels.com/photos/6863332/pexels-photo-6863332.jpeg', uploadedAt: '2023-10-24 11:47 AM' },
+    ]
+  },
 ];
 
 
 export default function AdminKycPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+
+  const handleViewDocuments = (app: Application) => {
+    setSelectedApplication(app);
+    setIsViewDialogOpen(true);
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -127,65 +193,177 @@ export default function AdminKycPage() {
           </div>
         </CardHeader>
         <CardContent className="relative p-0 sm:p-6 sm:pt-0">
-           <div className="overflow-x-auto px-4 sm:px-0">
-             <Table className="min-w-full">
-              <TableHeader>
-                <TableRow className="border-white/10 hover:bg-white/5">
-                  <TableHead className="min-w-[180px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">User</TableHead>
-                  <TableHead className="hidden min-w-[100px] text-xs text-neutral-400 sm:table-cell sm:text-sm">Submission Date</TableHead>
-                  <TableHead className="min-w-[80px] text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Status</TableHead>
-                  <TableHead className="min-w-[120px] text-right text-xs text-neutral-400 sm:min-w-0 sm:text-sm">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {applications.map((app) => (
-                  <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
-                    <TableCell className="py-3 sm:py-4">
-                      <div className="flex items-center gap-2 sm:gap-3">
-                        <div className="relative flex-shrink-0">
-                          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
-                          <Avatar className="relative h-8 w-8 border-2 border-white/20 sm:h-10 sm:w-10">
-                            <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
-                            <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-xs text-cyan-400 sm:text-sm">{app.name.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs font-medium text-white sm:text-sm">{app.name}</p>
-                          <p className="truncate text-xs text-neutral-400 sm:text-sm">{app.email}</p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden whitespace-nowrap text-xs text-neutral-400 sm:table-cell sm:text-sm">{app.date}</TableCell>
-                    <TableCell className="py-3 sm:py-4">
-                      <Badge className="whitespace-nowrap border-0 bg-gradient-to-r from-amber-500 to-orange-500 text-xs text-white">{app.status}</Badge>
-                    </TableCell>
-                    <TableCell className="py-3 text-right sm:py-4">
-                      <div className="flex justify-end gap-1 sm:gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                        >
-                          <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                          <span className="sr-only">Approve</span>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
-                        >
-                          <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
-                          <span className="sr-only">Reject</span>
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+           <div className="w-full overflow-x-auto">
+             <div className="inline-block min-w-full align-middle">
+               <div className="overflow-hidden">
+                 <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/10 hover:bg-white/5">
+                      <TableHead className="w-[200px] px-4 text-xs text-neutral-400 sm:w-auto sm:text-sm">User</TableHead>
+                      <TableHead className="hidden w-[120px] px-4 text-xs text-neutral-400 sm:table-cell sm:text-sm">Submission Date</TableHead>
+                      <TableHead className="w-[100px] px-4 text-xs text-neutral-400 sm:w-auto sm:text-sm">Status</TableHead>
+                      <TableHead className="w-[180px] px-4 text-right text-xs text-neutral-400 sm:w-auto sm:text-sm">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {applications.map((app) => (
+                      <TableRow key={app.id} className="border-white/10 transition-colors hover:bg-white/5">
+                        <TableCell className="px-4 py-3 sm:py-4">
+                          <div className="flex items-center gap-2 sm:gap-3">
+                            <div className="relative flex-shrink-0">
+                              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 blur-md transition-opacity group-hover:opacity-75"></div>
+                              <Avatar className="relative h-8 w-8 border-2 border-white/20 sm:h-10 sm:w-10">
+                                <AvatarImage src={`https://picsum.photos/seed/${app.avatar}/40/40`} data-ai-hint="person face" />
+                                <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-xs text-cyan-400 sm:text-sm">{app.name.charAt(0)}</AvatarFallback>
+                              </Avatar>
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-xs font-medium text-white sm:text-sm">{app.name}</p>
+                              <p className="truncate text-xs text-neutral-400 sm:text-sm">{app.email}</p>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden whitespace-nowrap px-4 text-xs text-neutral-400 sm:table-cell sm:text-sm">{app.date}</TableCell>
+                        <TableCell className="px-4 py-3 sm:py-4">
+                          <Badge className="whitespace-nowrap border-0 bg-gradient-to-r from-amber-500 to-orange-500 text-xs text-white">{app.status}</Badge>
+                        </TableCell>
+                        <TableCell className="px-4 py-3 text-right sm:py-4">
+                          <div className="flex justify-end gap-1 sm:gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleViewDocuments(app)}
+                              className="h-8 w-8 flex-shrink-0 rounded-lg text-cyan-400 transition-all hover:bg-cyan-500/10 hover:text-cyan-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                            >
+                              <Eye className="h-4 w-4 sm:h-5 sm:w-5" />
+                              <span className="sr-only">View Documents</span>
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                            >
+                              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                              <span className="sr-only">Approve</span>
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 flex-shrink-0 rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300 sm:h-10 sm:w-10 sm:rounded-xl"
+                            >
+                              <XCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+                              <span className="sr-only">Reject</span>
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+               </div>
+             </div>
            </div>
         </CardContent>
       </div>
+
+      {/* View Documents Dialog */}
+      <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
+        <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto border-white/10 bg-gradient-to-br from-neutral-900/95 to-neutral-800/95 backdrop-blur-xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-white">
+              KYC Documents - {selectedApplication?.name}
+            </DialogTitle>
+            <DialogDescription className="text-neutral-400">
+              Review submitted identification and verification documents
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedApplication && (
+            <div className="space-y-6 py-4">
+              {/* User Info */}
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12 border-2 border-white/20">
+                    <AvatarImage src={`https://picsum.photos/seed/${selectedApplication.avatar}/100/100`} data-ai-hint="person face" />
+                    <AvatarFallback className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-cyan-400">
+                      {selectedApplication.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold text-white">{selectedApplication.name}</p>
+                    <p className="text-sm text-neutral-400">{selectedApplication.email}</p>
+                    <p className="text-xs text-neutral-500">Submitted on {selectedApplication.date}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Documents Grid */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-white">Submitted Documents</h3>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  {selectedApplication.documents.map((doc, index) => (
+                    <div
+                      key={index}
+                      className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:border-emerald-500/30"
+                    >
+                      {/* Document Image */}
+                      <div className="relative aspect-[4/3] overflow-hidden bg-neutral-800">
+                        <Image
+                          src={doc.url}
+                          alt={doc.type}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint="document identification"
+                        />
+                        {/* Overlay on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                      </div>
+
+                      {/* Document Info */}
+                      <div className="p-4">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <h4 className="font-medium text-white">{doc.type}</h4>
+                            <p className="text-xs text-neutral-400">Uploaded: {doc.uploadedAt}</p>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 flex-shrink-0 rounded-lg text-emerald-400 transition-all hover:bg-emerald-500/10 hover:text-emerald-300"
+                            onClick={() => window.open(doc.url, '_blank')}
+                          >
+                            <Download className="h-4 w-4" />
+                            <span className="sr-only">Download</span>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end">
+                <Button
+                  variant="outline"
+                  className="border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300"
+                  onClick={() => setIsViewDialogOpen(false)}
+                >
+                  <XCircle className="mr-2 h-4 w-4" />
+                  Reject Application
+                </Button>
+                <Button
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600"
+                  onClick={() => setIsViewDialogOpen(false)}
+                >
+                  <CheckCircle className="mr-2 h-4 w-4" />
+                  Approve Application
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
